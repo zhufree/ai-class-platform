@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
-    <height>640</height>
+    <width>1120</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,102 +16,113 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>250</x>
       <y>0</y>
-      <width>421</width>
+      <width>371</width>
       <height>591</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
     </property>
-    <widget class="QWidget" name="page">
-     <widget class="QPushButton" name="pushButton_2">
+    <widget class="QWidget" name="facePage">
+     <widget class="QPushButton" name="faceDetectBtn">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>40</y>
-        <width>93</width>
-        <height>28</height>
+        <x>130</x>
+        <y>30</y>
+        <width>121</width>
+        <height>51</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>人脸检测</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="faceRegBtn">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>130</y>
-        <width>93</width>
-        <height>28</height>
+        <x>130</x>
+        <y>110</y>
+        <width>121</width>
+        <height>51</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>人脸注册</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="faceSearchBtn">
       <property name="geometry">
        <rect>
-        <x>150</x>
-        <y>220</y>
-        <width>101</width>
-        <height>41</height>
+        <x>130</x>
+        <y>190</y>
+        <width>121</width>
+        <height>51</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>人脸1：N搜索</string>
       </property>
      </widget>
-     <widget class="Line" name="line">
+     <widget class="QPushButton" name="faceMultiSearchBtn">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>70</y>
-        <width>3</width>
-        <height>61</height>
+        <x>130</x>
+        <y>270</y>
+        <width>121</width>
+        <height>51</height>
        </rect>
       </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-     <widget class="Line" name="line_2">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>150</y>
-        <width>3</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_6">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>310</y>
-        <width>111</width>
-        <height>41</height>
-       </rect>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>人脸M：N搜索</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="faceMatchBtn">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>350</y>
+        <width>121</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>人脸匹配</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QWidget" name="page_2"/>
+    <widget class="QWidget" name="voicePage"/>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="titleLabel">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -122,28 +133,39 @@
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>欢迎使用
 人工智能教学支持平台</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="faceRecPageBtn">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>60</x>
       <y>150</y>
-      <width>121</width>
-      <height>61</height>
+      <width>141</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>14</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>人脸识别</string>
@@ -152,10 +174,10 @@
    <widget class="QPushButton" name="voiceRecPageBtn">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>60</x>
       <y>260</y>
-      <width>121</width>
-      <height>61</height>
+      <width>141</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="font">
@@ -163,8 +185,59 @@
       <pointsize>14</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string>语音识别</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="fileSelectBtn">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>30</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>选择文件</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="showPicLabel">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>100</y>
+      <width>411</width>
+      <height>261</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="funcBtn">
+    <property name="geometry">
+     <rect>
+      <x>752</x>
+      <y>427</y>
+      <width>271</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>执行:</string>
     </property>
    </widget>
   </widget>
@@ -173,8 +246,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>936</width>
-     <height>26</height>
+     <width>1120</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>

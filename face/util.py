@@ -41,11 +41,15 @@ def show_parse_img(img_path, result_data):
     if result_data['result'] != None:
         # 解析位置信息
         location=result_data['result']['face_list'][0]['location']
+
         left_top=(int(location['left']),int(location['top']))
         right_bottom=(left_top[0]+int(location['width']),left_top[1]+int(location['height']))
-        print(left_top, right_bottom)
         img=cv2.imread(img_path)
         cv2.rectangle(img,left_top,right_bottom,(0,0,255),2)
+        if result_data['result']['face_list'][0]['landmark72']:
+            landmark = result_data['result']['face_list'][0]['landmark72']
+            for m in landmark:
+                cv2.circle(img, (int(m['x']), int(m['y'])), 2, (0, 255, 0), 4)
         cv2.namedWindow("img",0)
         # 按比例缩放
         w = img.shape[1]
@@ -54,6 +58,7 @@ def show_parse_img(img_path, result_data):
             ratio = 700/h
         else:
             ratio = 1000/w
+
         cv2.resizeWindow("img", int(img.shape[1]*ratio), int(img.shape[0]*ratio))
         cv2.imshow('img',img)
         cv2.waitKey(0)

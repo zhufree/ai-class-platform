@@ -1,5 +1,5 @@
 from aip import AipFace
-from util import image_to_base64, show_parse_img
+from .util import image_to_base64, show_parse_img
 
 APP_ID = '25168998'
 API_KEY = 'XTLLZ55NyCjqpchcbGIrlMFh'
@@ -7,19 +7,15 @@ SECRET_KEY = 'iKpy7XEbq8AQRw6frGcwfuGvRHNut5pK'
 
 client = AipFace(APP_ID, API_KEY, SECRET_KEY)
 
-def face_recognize(img_path):
+def face_detect(img_path):
     '''人脸检测:检测人脸并定位，返回五官关键点，及人脸各属性值'''
     image = image_to_base64(img_path)
     imageType = "BASE64"
 
     # 调用人脸检测
-    result = client.detect(image, imageType)
-    print(result)
-    show_parse_img(img_path, result)
-
     # 如果有可选参数
-    # options = {}
-    # options["face_field"] = "age" # 默认只返回face_token、人脸框、概率和旋转角度
+    options = {}
+    options["face_field"] = "landmark" # 默认只返回face_token、人脸框、概率和旋转角度
     # options["max_face_num"] = 2 # 最多检测人脸的数目，默认值1，最大值10,检测图片中面积最大的人脸；
     # options["face_type"] = "LIVE" 
     # LIVE表示生活照，IDCARD表示身份证芯片照
@@ -28,7 +24,8 @@ def face_recognize(img_path):
     # LOW:较低的活体要求 NORMAL: 一般的活体要求 HIGH: 较高的活体要求
 
     # 带参数调用人脸检测
-    # client.detect(image, imageType, options)
+    result = client.detect(image, imageType, options)
+    show_parse_img(img_path, result)
 
 
 def face_search(img_path):
@@ -99,5 +96,5 @@ def face_match(img_path_1, img_path_2):
     print('相似度为：' + result['score'])
 
 if __name__ == "__main__":
-    # face_recognize('person/zyq.jpg')
-    face_match('person/zyq.jpg','person/zyq1.jpg')
+    face_detect('person/zyq.jpg')
+    # face_match('person/zyq.jpg','person/zyq1.jpg')
