@@ -1,6 +1,6 @@
 import base64
 from aip import AipFace
-from util import image_to_base64, show_parse_img
+from .util import image_to_base64, show_parse_img
 
 APP_ID = '25168998'
 API_KEY = 'XTLLZ55NyCjqpchcbGIrlMFh'
@@ -15,7 +15,7 @@ def face_reg(img_path, user_id):
 
     """ 调用人脸注册 """
     result = client.addUser(image, imageType, groupId, user_id)
-    print(result)
+    return result['error_msg']
     # 如果有可选参数
     # options = {}
     # options["user_info"] = "user's info"

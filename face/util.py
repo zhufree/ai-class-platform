@@ -33,23 +33,26 @@ def image_to_base64(img_path, **kwargs):
             data = kwargs["prefix"] + data
             # base64_data = bytes(('data: image/jpeg;base64,%s' % str(base64.b64encode(f.read()), "utf-8")), "utf-8")
         # 转换为bytes对象
-        print("Succeed: %s >> 图片转换成base64" % img_path)
         return data.decode('ascii')
 
 
 def show_parse_img(img_path, result_data):
     if result_data['result'] != None:
         # 解析位置信息
-        location=result_data['result']['face_list'][0]['location']
+        for face in result_data['result']['face_list']:
+            location = face['location']
 
-        left_top=(int(location['left']),int(location['top']))
-        right_bottom=(left_top[0]+int(location['width']),left_top[1]+int(location['height']))
-        img=cv2.imread(img_path)
-        cv2.rectangle(img,left_top,right_bottom,(0,0,255),2)
-        if result_data['result']['face_list'][0]['landmark72']:
-            landmark = result_data['result']['face_list'][0]['landmark72']
-            for m in landmark:
-                cv2.circle(img, (int(m['x']), int(m['y'])), 2, (0, 255, 0), 4)
+            left_top = (int(location['left']), int(location['top']))
+            right_bottom = (left_top[0] + int(location['width']), left_top[1] + int(location['height']))
+            img = cv2.imread(img_path)
+            cv2.rectangle(img, left_top, right_bottom, (0, 0, 255), 2)
+            if 'landmark72' in face.keys():
+                landmark = face['landmark72']
+                for m in landmark:
+                    cv2.circle(img, (int(m['x']), int(m['y'])), 2, (0, 255, 0), 4)
+            if 'user_list' in face.keys() and len(face['user_list']) > 0:
+                name = face['user_list'][0]['user_id']
+                cv2.putText(img, name, left_top, cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
         cv2.namedWindow("img",0)
         # 按比例缩放
         w = img.shape[1]
