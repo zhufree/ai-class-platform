@@ -47,8 +47,6 @@ def show_parse_img(img_path, result_data):
 
             left_top = (int(location['left']), int(location['top']))
             right_bottom = (left_top[0] + int(location['width']), left_top[1] + int(location['height']))
-            # img = cv2.imread(img_path)
-            # img = cv2.rectangle(img, left_top, right_bottom, (0, 0, 255), 2)
             draw.rectangle((left_top, right_bottom), fill=None, outline=(0, 0, 255), width=2)
             if 'landmark72' in face.keys():
                 landmark = face['landmark72']
@@ -64,17 +62,4 @@ def show_parse_img(img_path, result_data):
                 draw.text((int(location['left']), int(location['top'] + location['height'])), 
                     name, font=font, fill=(255, 0, 0, 255), stroke_width=2)
         del draw
-        # cv2.namedWindow("img",0)
-        # # 按比例缩放
-        # w = img.shape[1]
-        # h = img.shape[0]
-        # if h > w:
-        #     ratio = 700/h
-        # else:
-        #     ratio = 1000/w
-
-        # cv2.resizeWindow("img", int(img.shape[1]*ratio), int(img.shape[0]*ratio))
-        # cv2.imshow('img',img)
-        # cv2.waitKey(0)
-
         img.show()

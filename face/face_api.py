@@ -26,7 +26,10 @@ def face_detect(img_path):
     # 带参数调用人脸检测
     result = client.detect(image, imageType, options)
     print(result)
-    show_parse_img(img_path, result)
+    if result['error_code'] == 0:
+        show_parse_img(img_path, result)
+    else:
+        return result['error_msg']
 
 
 def face_search(img_path, group_id_list='default'):
@@ -102,7 +105,7 @@ def face_match(img_path_1, img_path_2):
         }
     ])
     print(result)
-    if result['result']:
+    if result['result'] != None:
         return result['result']
     else:
         return result['error_msg']

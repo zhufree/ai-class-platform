@@ -1,4 +1,5 @@
-import sys, os
+import sys, os, time
+import cv2
 from PySide6.QtWidgets import *
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
@@ -25,6 +26,7 @@ class MainWindow(QMainWindow):
         qfile.close()
         self.ui = QUiLoader().load(qfile)
         self.func = FACE_DETECT
+        self.isTaking = False
         self.current_img_path = ''
         self.second_img_path = ''
         self.ui.operationWidget.setCurrentIndex(0)
@@ -33,6 +35,8 @@ class MainWindow(QMainWindow):
         self.ui.fileSelectBtn.clicked.connect(self.open_photo_file)
         self.ui.secondFileSelectBtn.clicked.connect(self.open_second_photo_file)
         self.ui.funcBtn.clicked.connect(self.on_func_clicked)
+        self.ui.takePhotoBtn.clicked.connect(self.on_take_photo_clicked)
+        self.ui.takeSecondPhotoBtn.clicked.connect(self.on_take_second_photo_clicked)
 
         self.ui.faceDetectBtn.clicked.connect(self.on_face_detect_clicked)
         self.ui.faceRegBtn.clicked.connect(self.on_face_register_clicked)
@@ -40,42 +44,61 @@ class MainWindow(QMainWindow):
         self.ui.faceMultiSearchBtn.clicked.connect(self.on_face_multi_clicked)
         self.ui.faceMatchBtn.clicked.connect(self.on_face_match_clicked)
 
-    def show_stack(self, i):
-        self.ui.functionFlowWidget.setCurrentIndex(i)
-
     def show_face_rec_page(self):
-        self.show_stack(0)
+        self.ui.functionFlowWidget.setCurrentIndex(0)
 
     def show_voice_rec_page(self):
-        self.show_stack(1)
+        self.ui.functionFlowWidget.setCurrentIndex(1)
 
+
+    def show_pic_in_label(self, img_path, label):
+        img = Image.open(img_path)
+        w = img.size[0]
+        h = img.size[1]
+        if w > h:
+            ratio = w/label.width()
+        else:
+            ratio = h/label.height()
+        jpg = QtGui.QPixmap(img_path).scaled(int(w/ratio), int(h/ratio))
+        label.setPixmap(jpg)
+
+
+    def open_camera(self, label):
+        cap = cv2.VideoCapture(0)
+        while True:
+            ret ,frame = cap.read()
+            k = cv2.waitKey(1)
+            if k == ord('q'):
+                break
+            elif k == ord('s'):
+                file_path = 'face/photo/' + time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime()) + '.jpg'
+                cv2.imwrite(file_path, frame)
+                self.show_pic_in_label(file_path, label)
+                break
+            cv2.imshow("capture", frame)
+        cap.release()
+        cv2.destroyAllWindows()
+        return file_path
+
+
+
+    def on_take_photo_clicked(self):
+        self.current_img_path = self.open_camera(self.ui.showPicLabel)
+
+    def on_take_second_photo_clicked(self):
+        self.second_img_path = self.open_camera(self.ui.showSecondPicLabel)
+        
     def open_photo_file(self):
         imgName,imgType = QFileDialog.getOpenFileName(self, "选择照片", os.getcwd(), 
         "*.jpg;;*.png;;All Files(*)")
         self.current_img_path = imgName
-        img = Image.open(imgName)
-        w = img.size[0]
-        h = img.size[1]
-        if w > h:
-            ratio = w/self.ui.showPicLabel.width()
-        else:
-            ratio = h/self.ui.showPicLabel.height()
-        jpg = QtGui.QPixmap(imgName).scaled(int(w/ratio), int(h/ratio))
-        self.ui.showPicLabel.setPixmap(jpg)
+        show_pic_in_label(imgName, self.ui.showPicLabel)
 
     def open_second_photo_file(self):
         imgName,imgType = QFileDialog.getOpenFileName(self, "选择照片", os.getcwd(), 
         "*.jpg;;*.png;;All Files(*)")
         self.second_img_path = imgName
-        img = Image.open(imgName)
-        w = img.size[0]
-        h = img.size[1]
-        if w > h:
-            ratio = w/self.ui.showSecondPicLabel.width()
-        else:
-            ratio = h/self.ui.showSecondPicLabel.height()
-        jpg = QtGui.QPixmap(imgName).scaled(int(w/ratio), int(h/ratio))
-        self.ui.showSecondPicLabel.setPixmap(jpg)
+        show_pic_in_label(imgName, self.ui.showSecondPicLabel)
 
     def on_face_detect_clicked(self):
         self.func = FACE_DETECT
@@ -107,7 +130,9 @@ class MainWindow(QMainWindow):
 
     def on_func_clicked(self):
         if self.func == FACE_DETECT:
-            face_detect(self.current_img_path)
+            result = face_detect(self.current_img_path)
+            if result != None:
+                self.ui.statusLabel.setText(result)
         elif self.func == FACE_REG:
             name = self.ui.nameInput.toPlainText()
             status = face_reg(self.current_img_path, name)
@@ -122,7 +147,7 @@ class MainWindow(QMainWindow):
                 self.ui.statusLabel.setText(result)
         elif self.func == FACE_MATCH:
             result = face_match(self.current_img_path, self.second_img_path)
-            if result['score']:
+            if 'score' in result.keys():
                 self.ui.statusLabel.setText('匹配结果：相似度' + str(result['score']))
             else:
                 self.ui.statusLabel.setText('匹配失败：' + result)

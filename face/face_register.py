@@ -26,17 +26,18 @@ def face_reg(img_path, user_id):
     # 带参数调用人脸注册 """
     # client.addUser(image, imageType, groupId, userId, options)
 
-def get_face_list(user_id):
+def get_group_list(group_id):
     groupId = "default"
 
     """ 调用获取用户人脸列表 """
-    result = client.faceGetlist(user_id, groupId)
+    result = client.getGroupUsers(group_id, options)
 
 
-def face_delete(user_id, face_token):
+def delete_user(user_id, face_token):
     groupId = "default"
     """ 调用人脸删除 """
-    client.faceDelete(user_id, groupId, face_token);
+    client.deleteUser(groupId, user_id)
+
 
 if __name__ == '__main__':
     face_reg('person/zyq.jpg', 'zyq')

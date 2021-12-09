@@ -218,7 +218,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="faceDetectPage"/>
     <widget class="QWidget" name="faceRegPage">
@@ -226,7 +226,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>112</y>
+        <y>134</y>
         <width>221</width>
         <height>51</height>
        </rect>
@@ -253,7 +253,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>192</y>
+        <y>214</y>
         <width>221</width>
         <height>51</height>
        </rect>
@@ -281,8 +281,8 @@
      <widget class="QPushButton" name="secondFileSelectBtn">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>0</y>
+        <x>20</x>
+        <y>10</y>
         <width>111</width>
         <height>31</height>
        </rect>
@@ -302,6 +302,22 @@
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="takeSecondPhotoBtn">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>10</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>拍照</string>
       </property>
      </widget>
     </widget>
@@ -325,8 +341,8 @@
    <widget class="QPushButton" name="fileSelectBtn">
     <property name="geometry">
      <rect>
-      <x>640</x>
-      <y>10</y>
+      <x>570</x>
+      <y>20</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -341,7 +357,7 @@
    <widget class="QLabel" name="statusLabel">
     <property name="geometry">
      <rect>
-      <x>720</x>
+      <x>580</x>
       <y>500</y>
       <width>231</width>
       <height>20</height>
@@ -349,6 +365,35 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="takePhotoBtn">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>拍照</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>60</y>
+      <width>231</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>拍照时按s保存照片，按q退出</string>
     </property>
    </widget>
   </widget>
