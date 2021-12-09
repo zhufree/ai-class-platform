@@ -1,5 +1,5 @@
 from aip import AipFace
-from util import image_to_base64, show_parse_img
+from .util import image_to_base64, show_parse_img
 
 APP_ID = '25168998'
 API_KEY = 'XTLLZ55NyCjqpchcbGIrlMFh'
@@ -25,6 +25,7 @@ def face_detect(img_path):
 
     # 带参数调用人脸检测
     result = client.detect(image, imageType, options)
+    print(result)
     show_parse_img(img_path, result)
 
 

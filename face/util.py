@@ -1,6 +1,7 @@
 import cv2
 import base64
 import requests
+from PIL import Image, ImageDraw, ImageFont
 
 
 access_token = '24.5200ee372c070dd4d3cf695a2205e007.2592000.1639542335.282335-25168998'
@@ -39,29 +40,41 @@ def image_to_base64(img_path, **kwargs):
 def show_parse_img(img_path, result_data):
     if result_data['result'] != None:
         # 解析位置信息
+        img = Image.open(img_path)
+        draw = ImageDraw.ImageDraw(img)
         for face in result_data['result']['face_list']:
             location = face['location']
 
             left_top = (int(location['left']), int(location['top']))
             right_bottom = (left_top[0] + int(location['width']), left_top[1] + int(location['height']))
-            img = cv2.imread(img_path)
-            cv2.rectangle(img, left_top, right_bottom, (0, 0, 255), 2)
+            # img = cv2.imread(img_path)
+            # img = cv2.rectangle(img, left_top, right_bottom, (0, 0, 255), 2)
+            draw.rectangle((left_top, right_bottom), fill=None, outline=(0, 0, 255), width=2)
             if 'landmark72' in face.keys():
                 landmark = face['landmark72']
                 for m in landmark:
-                    cv2.circle(img, (int(m['x']), int(m['y'])), 2, (0, 255, 0), 4)
+                    draw.ellipse(((int(m['x'])-2, int(m['y'])-2), (int(m['x'])+2, int(m['y'])+2)),
+                        fill="green", outline=(0, 225, 0), width=5)
             if 'user_list' in face.keys() and len(face['user_list']) > 0:
                 name = face['user_list'][0]['user_id']
-                cv2.putText(img, name, left_top, cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
-        cv2.namedWindow("img",0)
-        # 按比例缩放
-        w = img.shape[1]
-        h = img.shape[0]
-        if h > w:
-            ratio = 700/h
-        else:
-            ratio = 1000/w
+                font = ImageFont.truetype('msyh.ttc', size=30)
+                print(name)
+                # Draw a label with a name below the face
+                text_width, text_height = draw.textsize(name)
+                draw.text((int(location['left']), int(location['top'] + location['height'])), 
+                    name, font=font, fill=(255, 0, 0, 255), stroke_width=2)
+        del draw
+        # cv2.namedWindow("img",0)
+        # # 按比例缩放
+        # w = img.shape[1]
+        # h = img.shape[0]
+        # if h > w:
+        #     ratio = 700/h
+        # else:
+        #     ratio = 1000/w
 
-        cv2.resizeWindow("img", int(img.shape[1]*ratio), int(img.shape[0]*ratio))
-        cv2.imshow('img',img)
-        cv2.waitKey(0)
+        # cv2.resizeWindow("img", int(img.shape[1]*ratio), int(img.shape[0]*ratio))
+        # cv2.imshow('img',img)
+        # cv2.waitKey(0)
+
+        img.show()
