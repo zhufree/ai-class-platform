@@ -29,15 +29,20 @@ class MainWindow(QMainWindow):
         self.isTaking = False
         self.current_img_path = ''
         self.second_img_path = ''
+        self.ui.functionFlowWidget.setCurrentIndex(0)
         self.ui.operationWidget.setCurrentIndex(0)
+
         self.ui.faceRecPageBtn.clicked.connect(self.show_face_rec_page)
         self.ui.voiceRecPageBtn.clicked.connect(self.show_voice_rec_page)
+
+        # 人脸识别操作
         self.ui.fileSelectBtn.clicked.connect(self.open_photo_file)
         self.ui.secondFileSelectBtn.clicked.connect(self.open_second_photo_file)
         self.ui.funcBtn.clicked.connect(self.on_func_clicked)
         self.ui.takePhotoBtn.clicked.connect(self.on_take_photo_clicked)
         self.ui.takeSecondPhotoBtn.clicked.connect(self.on_take_second_photo_clicked)
-
+        
+        # 人脸识别不同功能选择
         self.ui.faceDetectBtn.clicked.connect(self.on_face_detect_clicked)
         self.ui.faceRegBtn.clicked.connect(self.on_face_register_clicked)
         self.ui.faceSearchBtn.clicked.connect(self.on_face_search_clicked)
