@@ -4,10 +4,10 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
 from PySide6 import QtGui
-from ai_teach_ui import Ui_MainWindow
 from PIL import Image
 from face.face_api import *
 from face.face_register import *
+from speech.speech_api import *
 from qt_material import apply_stylesheet
 
 FACE_DETECT = 0
@@ -15,12 +15,14 @@ FACE_REG = 1
 FACE_1_N_SAERCH = 2
 FACE_M_N_SAERCH = 3
 FACE_MATCH = 4
+V2T = 5
+T2V = 6
 
 class MainWindow(QMainWindow):
 
 
     def __init__(self):
-        super().__init__()
+        super(MainWindow, self).__init__()
         qfile = QFile("ai-teach.ui")
         qfile.open(QFile.ReadOnly)
         qfile.close()
@@ -30,7 +32,8 @@ class MainWindow(QMainWindow):
         self.current_img_path = ''
         self.second_img_path = ''
         self.ui.functionFlowWidget.setCurrentIndex(0)
-        self.ui.operationWidget.setCurrentIndex(0)
+        self.ui.userOperationWidget.setCurrentIndex(0)
+        self.ui.faceOperationWidget.setCurrentIndex(0)
 
         self.ui.faceRecPageBtn.clicked.connect(self.show_face_rec_page)
         self.ui.voiceRecPageBtn.clicked.connect(self.show_voice_rec_page)
@@ -49,11 +52,31 @@ class MainWindow(QMainWindow):
         self.ui.faceMultiSearchBtn.clicked.connect(self.on_face_multi_clicked)
         self.ui.faceMatchBtn.clicked.connect(self.on_face_match_clicked)
 
+        # 语音识别不同功能选择
+        self.ui.voice2TextBtn.clicked.connect(self.on_v2t_clicked)
+        self.ui.text2VoiceBtn.clicked.connect(self.on_t2v_clicked)
+        
+        # 语音识别操作
+        self.ui.recordBtn.clicked.connect(self.on_record_clicked)
+        self.ui.translateBtn.clicked.connect(self.on_translate_clicked)
+
+    def on_record_clicked(self):
+        self.ui.textResultLabel.setText('录音中...按enter结束录音')
+        record_voice()
+        self.ui.textResultLabel.setText('识别中...')
+        self.ui.textResultLabel.setText('识别结果：' + voice_to_text())
+
+    def on_translate_clicked(self):
+        text = self.ui.textInput.toPlainText()
+        text_to_voice(text).toPlainText()
+
     def show_face_rec_page(self):
         self.ui.functionFlowWidget.setCurrentIndex(0)
+        self.ui.userOperationWidget.setCurrentIndex(0)
 
     def show_voice_rec_page(self):
         self.ui.functionFlowWidget.setCurrentIndex(1)
+        self.ui.userOperationWidget.setCurrentIndex(1)
 
 
     def show_pic_in_label(self, img_path, label):
@@ -107,31 +130,39 @@ class MainWindow(QMainWindow):
 
     def on_face_detect_clicked(self):
         self.func = FACE_DETECT
-        self.ui.operationWidget.setCurrentIndex(0)
+        self.ui.faceOperationWidget.setCurrentIndex(0)
         self.ui.funcBtn.setText('执行：人脸检测')
 
     def on_face_register_clicked(self):
         self.func = FACE_REG
-        self.ui.operationWidget.setCurrentIndex(1)
+        self.ui.faceOperationWidget.setCurrentIndex(1)
         self.ui.nameInput.setEnabled(True)
         self.ui.funcBtn.setText('执行：人脸注册')
 
     def on_face_search_clicked(self):
         self.func = FACE_1_N_SAERCH
-        self.ui.operationWidget.setCurrentIndex(1)
+        self.ui.faceOperationWidget.setCurrentIndex(1)
         self.ui.nameInput.setEnabled(True)
         self.ui.funcBtn.setText('执行：人脸1：N搜索')
 
     def on_face_multi_clicked(self):
         self.func = FACE_M_N_SAERCH
-        self.ui.operationWidget.setCurrentIndex(1)
+        self.ui.faceOperationWidget.setCurrentIndex(1)
         self.ui.nameInput.setEnabled(False)
         self.ui.funcBtn.setText('执行：人脸M：N搜索')
 
     def on_face_match_clicked(self):
         self.func = FACE_MATCH
-        self.ui.operationWidget.setCurrentIndex(2)
+        self.ui.faceOperationWidget.setCurrentIndex(2)
         self.ui.funcBtn.setText('执行：人脸匹配')
+
+    def on_v2t_clicked(self):
+        self.func = V2T
+        self.ui.speechOperationWidget.setCurrentIndex(0)
+
+    def on_t2v_clicked(self):
+        self.func = T2V
+        self.ui.speechOperationWidget.setCurrentIndex(1)
 
     def on_func_clicked(self):
         if self.func == FACE_DETECT:

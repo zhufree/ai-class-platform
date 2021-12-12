@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1185</width>
-    <height>572</height>
+    <width>1352</width>
+    <height>576</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>人工智能教学支持平台</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -121,7 +121,7 @@
      </widget>
     </widget>
     <widget class="QWidget" name="voicePage">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="voice2TextBtn">
       <property name="geometry">
        <rect>
         <x>50</x>
@@ -139,11 +139,11 @@
        <string>语音识别</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="text2VoiceBtn">
       <property name="geometry">
        <rect>
         <x>50</x>
-        <y>270</y>
+        <y>290</y>
         <width>151</width>
         <height>71</height>
        </rect>
@@ -191,7 +191,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>150</y>
+      <y>180</y>
       <width>141</width>
       <height>81</height>
      </rect>
@@ -212,7 +212,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>260</y>
+      <y>340</y>
       <width>141</width>
       <height>81</height>
      </rect>
@@ -229,123 +229,40 @@
      <string>语音识别</string>
     </property>
    </widget>
-   <widget class="QLabel" name="showPicLabel">
+   <widget class="QStackedWidget" name="userOperationWidget">
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>80</y>
-      <width>301</width>
-      <height>301</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QStackedWidget" name="operationWidget">
-    <property name="geometry">
-     <rect>
-      <x>880</x>
       <y>10</y>
-      <width>271</width>
-      <height>491</height>
+      <width>741</width>
+      <height>521</height>
      </rect>
     </property>
     <property name="currentIndex">
      <number>1</number>
     </property>
-    <widget class="QWidget" name="faceDetectPage"/>
-    <widget class="QWidget" name="faceRegPage">
-     <widget class="QWidget" name="horizontalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>134</y>
-        <width>221</width>
-        <height>73</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="groupInputLayout">
-       <item>
-        <widget class="QLabel" name="groupLabel">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>group_id:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="groupInput"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="horizontalLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>30</x>
-        <y>214</y>
-        <width>221</width>
-        <height>73</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="nameInputLayout">
-       <item>
-        <widget class="QLabel" name="nameLabel">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>user_id:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTextEdit" name="nameInput"/>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="faceMatchPage">
-     <widget class="QPushButton" name="secondFileSelectBtn">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>111</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>选择照片2</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="showSecondPicLabel">
+    <widget class="QWidget" name="faceOperationPage">
+     <widget class="QPushButton" name="fileSelectBtn">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>70</y>
-        <width>251</width>
-        <height>311</height>
+        <y>30</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="text">
-       <string/>
+       <string>选择照片</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="takeSecondPhotoBtn">
+     <widget class="QPushButton" name="takePhotoBtn">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>10</y>
+        <x>150</x>
+        <y>30</y>
         <width>91</width>
         <height>31</height>
        </rect>
@@ -357,81 +274,270 @@
        <string>拍照</string>
       </property>
      </widget>
+     <widget class="QLabel" name="takePhotoNotice">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>231</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>拍照时按s保存照片，按q退出</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="funcBtn">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>430</y>
+        <width>231</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>执行:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="showPicLabel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>120</y>
+        <width>281</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="statusLabel">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>480</y>
+        <width>231</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QStackedWidget" name="faceOperationWidget">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>10</y>
+        <width>341</width>
+        <height>491</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="faceDetectPage"/>
+      <widget class="QWidget" name="faceRegPage">
+       <widget class="QWidget" name="horizontalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>40</y>
+          <width>221</width>
+          <height>73</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="groupInputLayout">
+         <item>
+          <widget class="QLabel" name="groupLabel">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>group_id:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="groupInput"/>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>130</y>
+          <width>221</width>
+          <height>73</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="nameInputLayout">
+         <item>
+          <widget class="QLabel" name="nameLabel">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>user_id:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="nameInput"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="faceMatchPage">
+       <widget class="QPushButton" name="secondFileSelectBtn">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>111</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>选择照片2</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="showSecondPicLabel">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>70</y>
+          <width>281</width>
+          <height>301</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="takeSecondPhotoBtn">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>20</y>
+          <width>91</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>拍照</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="funcBtn">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>450</y>
-      <width>231</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>执行:</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="fileSelectBtn">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>20</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>选择照片</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="statusLabel">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>500</y>
-      <width>231</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="takePhotoBtn">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>20</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>拍照</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="takePhotoNotice">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>60</y>
-      <width>231</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>拍照时按s保存照片，按q退出</string>
-    </property>
+    <widget class="QWidget" name="speechOperationPage">
+     <widget class="QStackedWidget" name="speechOperationWidget">
+      <property name="geometry">
+       <rect>
+        <x>70</x>
+        <y>20</y>
+        <width>341</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <widget class="QWidget" name="voice2TextPage">
+       <widget class="QPushButton" name="recordBtn">
+        <property name="geometry">
+         <rect>
+          <x>100</x>
+          <y>40</y>
+          <width>121</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>点击开始录音
+回车键结束</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="textResultLabel">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>150</y>
+          <width>221</width>
+          <height>231</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>识别结果：</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="text2VoicePage">
+       <widget class="QLabel" name="textInputNoticeLabel">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>30</y>
+          <width>54</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>输入文本：</string>
+        </property>
+       </widget>
+       <widget class="QPlainTextEdit" name="textInput">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>60</y>
+          <width>271</width>
+          <height>91</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="translateBtn">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>200</y>
+          <width>181</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>转换并播放
+（请确保麦克风或扬声器打开）</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -439,7 +545,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1185</width>
+     <width>1352</width>
      <height>22</height>
     </rect>
    </property>

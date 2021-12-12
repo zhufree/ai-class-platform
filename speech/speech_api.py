@@ -17,7 +17,7 @@ FORMAT = pyaudio.paInt16  # 采样位数
 CHANNELS = 1  # 单声道
 RATE = 16000  # 采样频率
 
-def record_audio():
+def record_voice():
     """ 录音功能 """
     p = pyaudio.PyAudio()  # 实例化对象
     stream = p.open(format=FORMAT,
@@ -42,7 +42,7 @@ def record_audio():
     wf.close()
 
 
-def play_audio(file_input_path):
+def play_voice(file_input_path):
     if file_input_path.endswith('.wav'):
         song = AudioSegment.from_wav(file_input_path)
     elif file_input_path.endswith('.mp3'):
@@ -63,15 +63,19 @@ def get_file_content(filePath):
 # 1637    粤语      有标点 不支持自定义词库
 # 1837    四川话     有标点 不支持自定义词库
 # 1936    普通话远场   远场模型    有标点 不支持
-def audio_to_text():
+def voice_to_text():
     # 识别本地文件
     result = client.asr(get_file_content('temp.wav'), 'wav', RATE, {
         'dev_pid': 1537, # 普通话
     })
     print(result)
     os.remove('temp.wav')
+    if result['err_no'] == 0 and result['result'] != None and len(result['result']) > 0:
+        return result['result'][0]
+    else:
+        return result['err_msg']
 
-def text_to_audio(text):
+def text_to_voice(text):
     result  = client.synthesis(text, 'zh', 1, {
         'vol': 5,
     })
@@ -80,12 +84,12 @@ def text_to_audio(text):
     if not isinstance(result, dict):
         with open('{}-result.mp3'.format(text), 'wb') as f:
             f.write(result)
-        play_audio('{}-result.mp3'.format(text))
+        play_voice('{}-result.mp3'.format(text))
 
 def test():
-    record_audio()
-    audio_to_text()
-    # text_to_audio('磕死我了')
+    record_voice()
+    voice_to_text()
+    # text_to_voice('磕死我了')
 
 
 if __name__ == '__main__':
