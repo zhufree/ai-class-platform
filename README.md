@@ -1,13 +1,22 @@
 # AI-TEACH 人工智能辅助教学平台
-图形化人工智能流程演示应用
+图形化人工智能流程演示应用，使用百度API及Pyside6开发。
 
 ## 人脸识别
 已支持**人脸检测**，**人脸注册**，**人脸1：N搜索**，**人脸M：N搜索**，**人脸对比**。
+
 支持直接调用摄像头拍照。
 
 ## 语音识别
 支持**语音转文字**，**文字转语音**。
-支持麦克风录音识别。
+
+使用麦克风录音。
 
 ## 使用说明
-直接运行`python ai-teach.py`启动，可以使用`pyinstaller -F -w ai-teach.py`打包为exe文件，将`ai-teach.ui`文件放在和exe文件同级文件夹下才能顺利启动。
+### 依赖库安装
+```python
+pip install -r requirements.txt
+```
+### 运行主程序
+运行`python ai-teach.py`启动图形化界面
+### 打包可执行文件
+可以安装`pyinstaller`并使用`pyinstaller -F -w ai-teach.py`打包为exe文件，要将`ai-teach.ui`文件放在和exe文件同级文件夹下才能顺利启动。
