@@ -26,7 +26,6 @@ def record_voice():
                     input=True,
                     frames_per_buffer=CHUNK)  # 打开流，传入响应参数
     wf = wave.open('temp.wav', 'wb')  # 打开 wav 文件。
-    print('录音中...按enter结束录音')
     wf.setnchannels(CHANNELS)  # 声道设置
     wf.setsampwidth(p.get_sample_size(FORMAT))  # 采样位数设置
     wf.setframerate(RATE)  # 采样频率设置
@@ -49,8 +48,9 @@ def play_voice(file_input_path):
         song = AudioSegment.from_mp3(file_input_path)
     if song != None:
         play(song)
+        return file_input_path
     else:
-        print('Can not recognize audio file.')
+        return 'Can not recognize audio file.'
 
 
 # 读取文件
@@ -68,7 +68,6 @@ def voice_to_text():
     result = client.asr(get_file_content('temp.wav'), 'wav', RATE, {
         'dev_pid': 1537, # 普通话
     })
-    print(result)
     os.remove('temp.wav')
     if result['err_no'] == 0 and result['result'] != None and len(result['result']) > 0:
         return result['result'][0]
@@ -84,7 +83,7 @@ def text_to_voice(text):
     if not isinstance(result, dict):
         with open('{}-result.mp3'.format(text), 'wb') as f:
             f.write(result)
-        play_voice('{}-result.mp3'.format(text))
+        return play_voice('{}-result.mp3'.format(text))
 
 def test():
     record_voice()

@@ -25,7 +25,6 @@ def face_detect(img_path):
 
     # 带参数调用人脸检测
     result = client.detect(image, imageType, options)
-    print(result)
     if result['error_code'] == 0:
         show_parse_img(img_path, result)
     else:
@@ -40,7 +39,6 @@ def face_search(img_path, group_id_list='default'):
 
     # 调用人脸检测
     result= client.search(image, imageType, group_id_list)
-    print(result)
     if result['result'] and result['result']['user_list'] \
         and len(result['result']['user_list']) > 0:
         return result['result']['user_list'][0]
@@ -86,7 +84,6 @@ def face_multi_search(img_path, group_id_list='default'):
     # """ 带参数调用人脸搜索 M:N 识别 """
     # client.multiSearch(image, imageType, groupIdList, options)
     result = client.multiSearch(image, image_type, group_id_list, options)
-    print(result)
     if result['error_code'] == 0:
         show_parse_img(img_path, result)
     else:
@@ -104,7 +101,6 @@ def face_match(img_path_1, img_path_2):
             'image_type': 'BASE64',
         }
     ])
-    print(result)
     if result['result'] != None:
         return result['result']
     else:

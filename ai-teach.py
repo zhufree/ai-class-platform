@@ -1,14 +1,15 @@
-import sys, os, time
-import cv2
 from PySide6.QtWidgets import *
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
 from PySide6 import QtGui
+from qt_material import apply_stylesheet
+import qasync
 from PIL import Image
 from face.face_api import *
 from face.face_register import *
 from speech.speech_api import *
-from qt_material import apply_stylesheet
+import sys, os, time
+import cv2
 
 FACE_DETECT = 0
 FACE_REG = 1
@@ -68,7 +69,7 @@ class MainWindow(QMainWindow):
 
     def on_translate_clicked(self):
         text = self.ui.textInput.toPlainText()
-        text_to_voice(text).toPlainText()
+        text_to_voice(text)
 
     def show_face_rec_page(self):
         self.ui.functionFlowWidget.setCurrentIndex(0)
@@ -120,13 +121,13 @@ class MainWindow(QMainWindow):
         imgName,imgType = QFileDialog.getOpenFileName(self, "选择照片", os.getcwd(), 
         "*.jpg;;*.png;;All Files(*)")
         self.current_img_path = imgName
-        show_pic_in_label(imgName, self.ui.showPicLabel)
+        self.show_pic_in_label(imgName, self.ui.showPicLabel)
 
     def open_second_photo_file(self):
         imgName,imgType = QFileDialog.getOpenFileName(self, "选择照片", os.getcwd(), 
         "*.jpg;;*.png;;All Files(*)")
         self.second_img_path = imgName
-        show_pic_in_label(imgName, self.ui.showSecondPicLabel)
+        self.show_pic_in_label(imgName, self.ui.showSecondPicLabel)
 
     def on_face_detect_clicked(self):
         self.func = FACE_DETECT
