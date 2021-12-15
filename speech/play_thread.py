@@ -11,7 +11,3 @@ class PlayThread(QThread):
         result = text_to_voice(self.text)
         if result != None:
             self.ui.setText(result)
-
-    def __del__(self):
-        self.working=False
-        self.wait()

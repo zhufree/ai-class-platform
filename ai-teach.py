@@ -3,7 +3,6 @@ from PySide6.QtCore import QFile, QThread
 from PySide6.QtUiTools import QUiLoader
 from PySide6 import QtGui
 from qt_material import apply_stylesheet
-import qasync
 from PIL import Image
 from face.face_api import *
 from face.face_register import *

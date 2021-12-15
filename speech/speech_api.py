@@ -4,7 +4,7 @@ import pyaudio, wave
 import keyboard
 from pydub import AudioSegment
 from pydub.playback import play
-import asyncio
+
 
 """ 你的 APPID AK SK """
 APP_ID = '25322432'
@@ -18,7 +18,7 @@ FORMAT = pyaudio.paInt16  # 采样位数
 CHANNELS = 1  # 单声道
 RATE = 16000  # 采样频率
 
-async def record_voice():
+def record_voice():
     """ 录音功能 """
     p = pyaudio.PyAudio()  # 实例化对象
     stream = p.open(format=FORMAT,
@@ -53,6 +53,7 @@ def play_voice(file_input_path):
         return 'Can not recognize audio file.'
 
 
+
 # 读取文件
 def get_file_content(filePath):
     with open(filePath, 'rb') as fp:
@@ -78,6 +79,7 @@ def text_to_voice(text):
     result  = client.synthesis(text, 'zh', 1, {
         'vol': 5,
     })
+    text = text.replace(' ', '')
 
     # 识别正确返回语音二进制 错误则返回dict 参照下面错误码
     if not isinstance(result, dict):
@@ -92,4 +94,5 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
+    # test()
+    pass
