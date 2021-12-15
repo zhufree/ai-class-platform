@@ -4,6 +4,7 @@ import pyaudio, wave
 import keyboard
 from pydub import AudioSegment
 from pydub.playback import play
+import asyncio
 
 """ 你的 APPID AK SK """
 APP_ID = '25322432'
@@ -17,7 +18,7 @@ FORMAT = pyaudio.paInt16  # 采样位数
 CHANNELS = 1  # 单声道
 RATE = 16000  # 采样频率
 
-def record_voice():
+async def record_voice():
     """ 录音功能 """
     p = pyaudio.PyAudio()  # 实例化对象
     stream = p.open(format=FORMAT,
@@ -48,7 +49,6 @@ def play_voice(file_input_path):
         song = AudioSegment.from_mp3(file_input_path)
     if song != None:
         play(song)
-        return file_input_path
     else:
         return 'Can not recognize audio file.'
 

@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import *
-from PySide6.QtCore import QFile
+from PySide6.QtCore import QFile, QThread
 from PySide6.QtUiTools import QUiLoader
 from PySide6 import QtGui
 from qt_material import apply_stylesheet
@@ -7,9 +7,14 @@ import qasync
 from PIL import Image
 from face.face_api import *
 from face.face_register import *
-from speech.speech_api import *
+from speech.record_thread import RecordThread
+from speech.play_thread import PlayThread
 import sys, os, time
 import cv2
+
+# 测试步骤
+# python ai-teach.py
+# pyinstaller -F ai-teach.py 打包exe文件，测试exe（加-w 会导致播不出音频（不知道为什么
 
 FACE_DETECT = 0
 FACE_REG = 1
@@ -32,6 +37,8 @@ class MainWindow(QMainWindow):
         self.isTaking = False
         self.current_img_path = ''
         self.second_img_path = ''
+        self.is_recording = False
+
         self.ui.functionFlowWidget.setCurrentIndex(0)
         self.ui.userOperationWidget.setCurrentIndex(0)
         self.ui.faceOperationWidget.setCurrentIndex(0)
@@ -62,14 +69,19 @@ class MainWindow(QMainWindow):
         self.ui.translateBtn.clicked.connect(self.on_translate_clicked)
 
     def on_record_clicked(self):
+        if self.is_recording: 
+            return
+        self.is_recording = True
         self.ui.textResultLabel.setText('录音中...按enter结束录音')
-        record_voice()
-        self.ui.textResultLabel.setText('识别中...')
-        self.ui.textResultLabel.setText('识别结果：' + voice_to_text())
+        self.record = RecordThread(self.ui.textResultLabel)
+        self.record.start()
+        self.is_recording = False
 
     def on_translate_clicked(self):
         text = self.ui.textInput.toPlainText()
-        text_to_voice(text)
+        # text_to_voice(text)
+        self.play_thread = PlayThread(text, self.ui.textInputNoticeLabel)
+        self.play_thread.start()
 
     def show_face_rec_page(self):
         self.ui.functionFlowWidget.setCurrentIndex(0)
@@ -108,7 +120,6 @@ class MainWindow(QMainWindow):
         cap.release()
         cv2.destroyAllWindows()
         return file_path
-
 
 
     def on_take_photo_clicked(self):
@@ -191,8 +202,10 @@ class MainWindow(QMainWindow):
 
 
 
-if __name__ == '__main__':
+
+def main():
     app = QApplication([])
+    # app = QApplication.instance()
     apply_stylesheet(app, theme='light_blue.xml')
     # MainWindow = QMainWindow()
     # ui = ai_teach_ui.Ui_MainWindow()
@@ -201,3 +214,9 @@ if __name__ == '__main__':
     win = MainWindow()
     win.ui.show()
     sys.exit(app.exec())
+    # await future
+    # return True
+
+
+if __name__ == '__main__':
+    main()

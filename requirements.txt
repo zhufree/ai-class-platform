@@ -1,8 +1,7 @@
-PySide6>=6.2.2
-baidu-aip>=2.2.18.0
-PyAudio>=0.2.11
-pydub>=0.25.1
-keyboard>=0.13.5
-opencv-python>=4.5.2.54
-qt-material>=2.8.13
-requests>=2.26.0
+PySide6==6.2.2
+baidu-aip==2.2.18.0
+PyAudio==0.2.11
+pydub==0.25.1
+keyboard==0.13.5
+opencv-python==4.5.2.54
+qt-material==2.8.13
