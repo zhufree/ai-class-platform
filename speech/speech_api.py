@@ -4,7 +4,7 @@ import pyaudio, wave
 import keyboard
 from pydub import AudioSegment
 from pydub.playback import play
-
+AudioSegment.converter = os.getcwd() + '/ffmpeg.exe'
 
 """ 你的 APPID AK SK """
 APP_ID = '25322432'

@@ -2,7 +2,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import QFile, QThread
 from PySide6.QtUiTools import QUiLoader
 from PySide6 import QtGui
-from qt_material import apply_stylesheet
+# from qt_material import apply_stylesheet
 from PIL import Image
 from face.face_api import *
 from face.face_register import *
@@ -205,7 +205,7 @@ class MainWindow(QMainWindow):
 def main():
     app = QApplication([])
     # app = QApplication.instance()
-    apply_stylesheet(app, theme='light_blue.xml')
+    # apply_stylesheet(app, theme='light_blue.xml')
     # MainWindow = QMainWindow()
     # ui = ai_teach_ui.Ui_MainWindow()
     # ui.setupUi(MainWindow)

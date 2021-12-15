@@ -12,11 +12,17 @@
 使用麦克风录音。
 
 ## 使用说明
-### 依赖库安装
+### 针对用户的说明
+dist文件夹下的`ai-teach.exe`文件可直接运行
+
+### 针对开发者的说明
+#### 依赖库安装
 ```python
 pip install -r requirements.txt
+pip install opencv-python
 ```
-### 运行主程序
+pyAudio需要[单独下载.whl文件](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio)安装
+#### 运行主程序
 运行`python ai-teach.py`启动图形化界面
-### 打包可执行文件
+#### 打包可执行文件
 可以安装`pyinstaller`并使用`pyinstaller -F -w ai-teach.py`打包为exe文件，要将`ai-teach.ui`文件放在和exe文件同级文件夹下才能顺利启动。
